@@ -1,0 +1,6 @@
+config.properties
+.idea/
+target/
+lib/
+logs/
+reports/
