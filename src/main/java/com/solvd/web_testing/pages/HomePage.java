@@ -32,18 +32,6 @@ public class HomePage extends AbstractPage {
         super.openURL(Configuration.getRequired("home_url"));
     }
 
-    public ExtendedWebElement getUsernameInput() {
-        return usernameInput;
-    }
-
-    public ExtendedWebElement getPasswordInput() {
-        return passwordInput;
-    }
-
-    public ExtendedWebElement getLoginButton() {
-        return loginButton;
-    }
-
     public String getInvalidLoginElementText() {
         return invalidLoginElement.getText();
     }

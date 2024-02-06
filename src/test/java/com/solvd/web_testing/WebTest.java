@@ -17,7 +17,7 @@ public class WebTest extends AbstractTest {
 
     private final LoginService loginService = new LoginService();
 
-    @Test(description = "Verify valid login", enabled = false)
+    @Test(description = "Verify valid login")
     public void verifyValidLoginTest() {
         SoftAssert sa = new SoftAssert();
         HomePage homePage = getHomePage();
@@ -42,7 +42,7 @@ public class WebTest extends AbstractTest {
         sa.assertTrue(homePage.isLoginButtonElementPresent());
 
         SecondPage secondPage = loginService.login(loginService.createUser(Users.INVALID), getDriver());
-        sa.assertFalse(secondPage.isPageOpened());
+        sa.assertFalse(secondPage.isPageOpened(1));
         sa.assertEquals(homePage.getInvalidLoginElementText(), "Epic sadface: Username and password do not match any user in this service");
 
         sa.assertAll();
