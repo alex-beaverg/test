@@ -8,7 +8,7 @@
 
 **Task:** *Online web testing*
 
-**Students:** *All collaborators*
+**Students:** *All contributors*
 
 ---
 
