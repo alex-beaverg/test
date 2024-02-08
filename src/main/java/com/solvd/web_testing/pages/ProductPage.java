@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class ProductPage extends AbstractPage {
-    @FindBy(xpath = "//*[@class='inventory_details_container']")
+    @FindBy(xpath = "//*[@class='inventory_details_name large_size']")
     private ExtendedWebElement productName;
 
     @FindBy(xpath = "//*[@class='inventory_details_desc large_size']")
@@ -32,5 +32,4 @@ public class ProductPage extends AbstractPage {
 
         return productCard;
     }
-
 }

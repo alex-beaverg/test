@@ -1,5 +1,7 @@
 package com.solvd.web_testing.domain;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+
 import java.util.Objects;
 
 public class ProductCard {
@@ -41,11 +43,8 @@ public class ProductCard {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductCard that = (ProductCard) o;
-        return Double.compare(that.price, price) == 0 && Objects.equals(title, that.title) && Objects.equals(description, that.description);
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override

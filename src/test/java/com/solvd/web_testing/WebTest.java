@@ -50,7 +50,7 @@ public class WebTest extends AbstractTest {
         ProductCard productCardFromSecondPage = secondPage.getProductByIndex(1);
         ProductPage productPage = secondPage.clickOnProduct(1);
         ProductCard productCardFromProductPage = productPage.getProduct();
-        sa.assertEquals(productCardFromSecondPage, productCardFromProductPage);
+        sa.assertEquals(productCardFromSecondPage, productCardFromProductPage, "There is no such product on the product page");
 
         sa.assertAll();
     }
