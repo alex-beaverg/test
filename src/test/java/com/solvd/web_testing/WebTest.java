@@ -1,8 +1,10 @@
 package com.solvd.web_testing;
 
 import com.solvd.web_testing.domain.ItemSorts;
+import com.solvd.web_testing.domain.ProductCard;
 import com.solvd.web_testing.domain.Users;
 import com.solvd.web_testing.pages.HomePage;
+import com.solvd.web_testing.pages.ProductPage;
 import com.solvd.web_testing.pages.SecondPage;
 import com.solvd.web_testing.util.LoginService;
 import com.solvd.web_testing.util.SortService;
@@ -28,6 +30,26 @@ public class WebTest extends AbstractTest {
 
         SecondPage secondPage = loginService.login(loginService.createUser(Users.VALID), getDriver());
         sa.assertTrue(secondPage.isPageOpened());
+
+        sa.assertAll();
+    }
+
+    @Test(description = "Verify product")
+    public void verifyProductTest() {
+        SoftAssert sa = new SoftAssert();
+        HomePage homePage = getHomePage();
+
+        sa.assertTrue(homePage.isUsernameInputElementPresent());
+        sa.assertTrue(homePage.isPasswordInputElementPresent());
+        sa.assertTrue(homePage.isLoginButtonElementPresent());
+
+        SecondPage secondPage = loginService.login(loginService.createUser(Users.VALID), getDriver());
+        sa.assertTrue(secondPage.isPageOpened());
+
+        ProductCard productCardFromSecondPage = secondPage.getProductByIndex(1);
+        ProductPage productPage = secondPage.clickOnProduct(1);
+        ProductCard productCardFromProductPage = productPage.getProduct();
+        sa.assertEquals(productCardFromSecondPage, productCardFromProductPage);
 
         sa.assertAll();
     }
