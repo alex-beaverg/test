@@ -5,7 +5,6 @@ import com.solvd.web_testing.domain.ProductCard;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
-import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -13,6 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SecondPage extends AbstractPage {
+
+    @FindBy(className = "shopping_cart_link")
+    private ExtendedWebElement cartIcon;
+
+    @FindBy(className = "shopping_cart_badge")
+    private ExtendedWebElement cartIconWithItems;
+
+    @FindBy(className = "//button[@class='btn btn_primary btn_small btn_inventory '][%d]")
+    private ExtendedWebElement addToCartButton;
 
     @FindBy(xpath = "//div[@class = 'app_logo']")
     private ExtendedWebElement title;
@@ -65,5 +73,23 @@ public class SecondPage extends AbstractPage {
         productNameByIndex.format(index).click();
 
         return new ProductPage(driver);
+    }
+
+    public boolean isCartEmpty() {
+        return !cartIconWithItems.isPresent();
+    }
+
+    public int getProductQuantity() {
+        return Integer.parseInt(cartIconWithItems.getText());
+    }
+
+    public ProductCard addProductToCart(int index) {
+        addToCartButton.format(index).click();
+        return getProductByIndex(index);
+    }
+
+    public CartPage openCart() {
+        cartIcon.click();
+        return new CartPage(getDriver());
     }
 }

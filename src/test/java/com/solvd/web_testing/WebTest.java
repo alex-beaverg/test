@@ -3,6 +3,7 @@ package com.solvd.web_testing;
 import com.solvd.web_testing.domain.ItemSorts;
 import com.solvd.web_testing.domain.ProductCard;
 import com.solvd.web_testing.domain.Users;
+import com.solvd.web_testing.pages.CartPage;
 import com.solvd.web_testing.pages.HomePage;
 import com.solvd.web_testing.pages.ProductPage;
 import com.solvd.web_testing.pages.SecondPage;
@@ -88,6 +89,25 @@ public class WebTest extends AbstractTest {
         secondPage.sortOption(ItemSorts.DESC);
         List<String> actualAfterDESCSort = secondPage.getItemNames();
         softAssert.assertEquals(actualAfterDESCSort, sortService.descSort(beforeSort));
+    }
+
+    @Test(description = "Verify valid login")
+    public void verifyCartProducts() {
+        SoftAssert softAssert = new SoftAssert();
+        HomePage homePage = getHomePage();
+        SecondPage secondPage = loginService.login(loginService.createUser(Users.VALID), getDriver());
+        softAssert.assertTrue(secondPage.isCartEmpty(), "Should be empty");
+        ProductCard one = secondPage.addProductToCart(1);
+        softAssert.assertTrue(secondPage.getProductQuantity() == 1, "Should be one product in a cart");
+        ProductCard two = secondPage.addProductToCart(2);
+        softAssert.assertTrue(secondPage.getProductQuantity() == 2, "Should be two products in a cart");
+        CartPage cartPage = secondPage.openCart();
+        softAssert.assertTrue(cartPage.isPageOpened(), "Should be opened");
+        List<String> cartItems = cartPage.getProductsFromCart();
+        softAssert.assertTrue(cartItems.size() == 2);
+        softAssert.assertEquals(cartItems.get(0), one.getTitle());
+        softAssert.assertEquals(cartItems.get(1), two.getTitle());
+        softAssert.assertAll();
     }
 
     private HomePage getHomePage() {
